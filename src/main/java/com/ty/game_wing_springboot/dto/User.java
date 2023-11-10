@@ -1,5 +1,7 @@
 package com.ty.game_wing_springboot.dto;
 
+import com.ty.game_wing_springboot.entity.Role;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,6 +30,3 @@ public class User {
 	private Club club;
 }
 
-enum Role{
-	ADMIN,OWNER,MANAGER,CUSTOMER
-}
