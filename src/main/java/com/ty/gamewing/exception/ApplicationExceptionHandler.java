@@ -28,7 +28,8 @@ public class ApplicationExceptionHandler {
 	}
 
 	@ExceptionHandler(NoSuchClubInTheCourtException.class)
-	public ResponseEntity<ResponseStructure<String>> catchNoSuchClubExistException(NoSuchClubInTheCourtException exception) {
+	public ResponseEntity<ResponseStructure<String>> catchNoSuchClubExistException(
+			NoSuchClubInTheCourtException exception) {
 		ResponseStructure<String> responseStructure = new ResponseStructure<String>();
 		responseStructure.setData(exception.getMessage());
 		responseStructure.setMessage("Failed");
@@ -36,4 +37,12 @@ public class ApplicationExceptionHandler {
 		return new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.NO_CONTENT);
 	}
 
+	@ExceptionHandler(NoSuchUserFoundException.class)
+	public ResponseEntity<ResponseStructure<String>> catchNoSuchUserFoundException(NoSuchUserFoundException exception) {
+		ResponseStructure<String> responseStructure = new ResponseStructure<String>();
+		responseStructure.setData(exception.getMessage());
+		responseStructure.setMessage("Failed");
+		responseStructure.setStatusCode(HttpStatus.NO_CONTENT.value());
+		return new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.NO_CONTENT);
+	}
 }
