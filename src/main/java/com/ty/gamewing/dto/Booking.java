@@ -1,13 +1,15 @@
-package com.ty.game_wing_springboot.dto;
+package com.ty.gamewing.dto;
 
 import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,16 +17,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Booking {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int id;
-	LocalDateTime start;
-	LocalDateTime end;
-	double totalprice;
-	double totalduration;
-	
+	private int id;
+	@CreationTimestamp
+	private LocalDateTime startTime;
+	@UpdateTimestamp
+	private LocalDateTime endTime;
+	private double totalprice;
+	private double totalduration;
 	@ManyToOne
-	User User;
+	private User User;
 
 }
