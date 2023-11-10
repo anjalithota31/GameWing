@@ -5,7 +5,7 @@ public class NoSuchClubExistException extends  RuntimeException{
 	@Override
 	public String getMessage() {
 		
-		return "No Such Club Exist";
+		return "No Such Club exists";
 	}
 	
 }
