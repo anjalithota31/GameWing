@@ -1,8 +1,8 @@
-package com.ty.game_wing_springboot.dto;
+package com.ty.gamewing.dto;
 
 import java.util.List;
 
-import com.ty.game_wing_springboot.entity.Status;
+import com.ty.gamewing.entity.Status;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,15 +1,19 @@
-package com.ty.game_wing_springboot.dto;
+package com.ty.gamewing.dto;
 
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Entity
 @Data
 public class Court {
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private String SportName;
