@@ -2,6 +2,8 @@ package com.ty.game_wing_springboot.dto;
 
 import java.util.List;
 
+import com.ty.game_wing_springboot.entity.Status;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,11 +23,6 @@ public class Club {
 	private Status status;
 	@OneToMany
 	private List<User> user;
-	
-	
-
-}
-enum Status
-{
-	ACTIVE,INACTIVE
+	@OneToMany
+	private List<Court> court;
 }
