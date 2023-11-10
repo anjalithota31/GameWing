@@ -1,5 +1,6 @@
 package com.ty.gamewing.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,7 @@ public class ClubDao {
 	public Club saveClub(Club club) {
 		return repo.save(club);
 	}
-
-	public Club updateClub(Club club) {
-		return repo.save(club);
-	}
-
+	
 	public boolean deleteClub(int id) {
 		Optional<Club> optional = repo.findById(id);
 		if (optional.isPresent()) {
@@ -32,7 +29,43 @@ public class ClubDao {
 		}
 	}
 
-//	public Club findById(int id) {
-//
-//	}
+
+	public Club findById(int id) {
+		Optional<Club> optional = repo.findById(id);
+		if (optional.isPresent()) {
+			return optional.get();
+		} else {
+			throw new NoSuchClubExistException();
+		}
 	}
+
+	public Club updateClubStatus(int id) {
+		Optional<Club> optional = repo.findById(id);
+		if (optional.isPresent()) {
+			Club club = optional.get();
+			return repo.save(club);
+		}
+		else
+		{
+			throw new NoSuchClubExistException();
+		}
+	}
+	
+	public List<Club> displayAllClub()
+	{
+		return repo.findAll();
+	}
+	
+	public Club findByStatus(String status)
+	{
+		Club club=repo.findByStatus(status);
+		if(club!=null)
+		{
+			return club;
+		}
+		else
+		{
+			throw new NoSuchClubExistException();
+		}
+	}
+}
