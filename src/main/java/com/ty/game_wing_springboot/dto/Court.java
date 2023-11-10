@@ -1,6 +1,9 @@
 package com.ty.game_wing_springboot.dto;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Entity
@@ -18,5 +21,7 @@ public class Court {
 	private double duration;
 
 	private double price;
+	@OneToMany
+	private List<Booking> bookings;
 
 }
