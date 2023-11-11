@@ -1,5 +1,9 @@
 package com.ty.gamewing.entity;
 
+import java.util.List;
+
+import com.ty.gamewing.dto.Club;
+
 import lombok.Getter;
 import lombok.Setter;
 

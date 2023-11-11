@@ -10,14 +10,25 @@ import com.ty.gamewing.entity.ResponseStructure;
 @ControllerAdvice
 public class ApplicationExceptionHandler {
 	@ExceptionHandler(NoSuchClubExistException.class)
-	public ResponseEntity<ResponseStructure<String>> IdNotPresentException(NoSuchClubExistException exception) {
+	public ResponseEntity<ResponseStructure<String>> NoSuchClubPresentException(NoSuchClubExistException exception) {
 		ResponseStructure<String> responseStructure = new ResponseStructure<String>();
 		responseStructure.setData(exception.getMessage());
 		responseStructure.setMessage("Failed");
-		responseStructure.setStatusCode(HttpStatus.NOT_FOUND.value());
-		return new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.NOT_FOUND);
+		responseStructure.setStatusCode(HttpStatus.NO_CONTENT.value());
+		return new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.NO_CONTENT);
 	}
-
+	
+	@ExceptionHandler(NoClubPresentException.class)
+	public ResponseEntity<ResponseStructure<String>> NoSClubPresentException(NoClubPresentException exception) {
+		ResponseStructure<String> responseStructure = new ResponseStructure<String>();
+		responseStructure.setData(exception.getMessage());
+		responseStructure.setMessage("Failed");
+		responseStructure.setStatusCode(HttpStatus.NO_CONTENT.value());
+		return new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.NO_CONTENT);
+	}
+	
+	
+	
 	@ExceptionHandler(NoSuchCourtFoundException.class)
 	public ResponseEntity<ResponseStructure<String>> courtNotFound(NoSuchCourtFoundException exception) {
 		ResponseStructure<String> responseStructure = new ResponseStructure<String>();

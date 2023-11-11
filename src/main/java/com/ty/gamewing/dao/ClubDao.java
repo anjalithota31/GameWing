@@ -19,13 +19,13 @@ public class ClubDao {
 		return repo.save(club);
 	}
 	
-	public boolean deleteClub(int id) {
+	public String deleteClub(int id) {
 		Optional<Club> optional = repo.findById(id);
 		if (optional.isPresent()) {
 			repo.deleteById(id);
-			return true;
+			return "Deleted";
 		} else {
-			throw new NoSuchClubExistException();
+			return "No such club is present to delete";
 		}
 	}
 
@@ -35,19 +35,21 @@ public class ClubDao {
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {
-			throw new NoSuchClubExistException();
+			return null;
 		}
 	}
 
 	public Club updateClubStatus(int id) {
 		Optional<Club> optional = repo.findById(id);
 		if (optional.isPresent()) {
+			
 			Club club = optional.get();
+			
 			return repo.save(club);
 		}
 		else
 		{
-			throw new NoSuchClubExistException();
+			return null;
 		}
 	}
 	
@@ -65,7 +67,7 @@ public class ClubDao {
 		}
 		else
 		{
-			throw new NoSuchClubExistException();
+			return null;
 		}
 	}
 }
