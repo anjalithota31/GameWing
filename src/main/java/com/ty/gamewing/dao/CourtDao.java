@@ -32,7 +32,7 @@ public class CourtDao {
 		if (opt.isPresent()) {
 			return opt.get();
 		}
-		throw new NoSuchCourtFoundException();
+		return null;
 	}
 
 	public boolean deleteCourt(int id) {
@@ -40,16 +40,16 @@ public class CourtDao {
 			courtRepo.deleteById(id);
 			return true;
 		}
-		throw new NoSuchCourtFoundException();
+		return false;
 
 	}
 
-	public Court findCourtByClubId(int id) {
-		Court court = findCourtByClubId(id);
+	public Court findCourtByClub(int id) {
+		Court court = courtRepo.findCourtByClubId(id);
 		if (court != null) {
 			return court;
 		}
-		throw new NoSuchClubInTheCourtException();
+	 return null;
 	}
 
 	public List<Court> findAllCourt() {
