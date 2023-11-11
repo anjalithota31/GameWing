@@ -83,17 +83,21 @@ public class ClubService {
 		}
 		
 	}
-	public ResponseEntity<ResponseStructure<List<Club>>> displayAllClub()
+	public ResponseEntity<ResponseStructure<Club>> displayAllClub()
 	{
-		List<Club> club=dao.displayAllClub();
-		if(club!=null)
+		List<Club> clubs=dao.displayAllClub();
+		if(clubs!=null)
 		{
-			ResponseStructure<List<Club>> structure = new ResponseStructure<List<Club>>();
+			ResponseStructure<Club> structure = new ResponseStructure<Club>();
 			structure.setStatusCode(HttpStatus.FOUND.value());
-			structure.setData(club);
+			for(Club club:clubs)
+			{
+				structure.setData(club);
+			}
+			
 			structure.setMessage("Success");
 			
-			return new ResponseEntity<ResponseStructure<List<Club>>>(structure,HttpStatus.FOUND);
+			return new ResponseEntity<ResponseStructure<Club>>(structure,HttpStatus.FOUND);
 		}
 		else
 		{
