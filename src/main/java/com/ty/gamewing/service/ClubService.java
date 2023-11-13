@@ -96,15 +96,15 @@ public class ClubService {
 		}
 	}
 
-	public ResponseEntity<ResponseStructure<Club>> findByStatus(String status) {
-		Club club = dao.findByStatus(status);
+	public ResponseEntity<ResponseStructure<List<Club>>> findByStatus(String status) {
+		List<Club> club = dao.findByStatus(status);
 		if (club != null) {
-			ResponseStructure<Club> structure = new ResponseStructure<Club>();
+			ResponseStructure<List<Club>> structure = new ResponseStructure<List<Club>>();
 			structure.setStatusCode(HttpStatus.FOUND.value());
 			structure.setData(club);
 			structure.setMessage("Success");
 
-			return new ResponseEntity<ResponseStructure<Club>>(structure, HttpStatus.FOUND);
+			return new ResponseEntity<ResponseStructure<List<Club>>>(structure, HttpStatus.FOUND);
 		} else {
 			throw new NoSuchClubExistException();
 		}
