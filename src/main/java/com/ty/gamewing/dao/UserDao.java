@@ -26,7 +26,7 @@ public class UserDao {
 			repo.deleteById(id);
 			return true;
 		} else {
-			throw new NoSuchUserFoundException();
+			return false;
 		}
 	}
 
@@ -35,7 +35,7 @@ public class UserDao {
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {
-			throw new NoSuchUserFoundException();
+			return null;
 		}
 	}
 

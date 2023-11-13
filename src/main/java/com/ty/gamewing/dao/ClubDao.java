@@ -18,7 +18,7 @@ public class ClubDao {
 	public Club saveClub(Club club) {
 		return repo.save(club);
 	}
-	
+
 	public String deleteClub(int id) {
 		Optional<Club> optional = repo.findById(id);
 		if (optional.isPresent()) {
@@ -28,7 +28,6 @@ public class ClubDao {
 			return "No such club is present to delete";
 		}
 	}
-
 
 	public Club findById(int id) {
 		Optional<Club> optional = repo.findById(id);
@@ -42,31 +41,24 @@ public class ClubDao {
 	public Club updateClubStatus(int id) {
 		Optional<Club> optional = repo.findById(id);
 		if (optional.isPresent()) {
-			
+
 			Club club = optional.get();
-			
+
 			return repo.save(club);
-		}
-		else
-		{
+		} else {
 			return null;
 		}
 	}
-	
-	public List<Club> displayAllClub()
-	{
+
+	public List<Club> displayAllClub() {
 		return repo.findAll();
 	}
-	
-	public Club findByStatus(String status)
-	{
-		Club club=repo.findByStatus(status);
-		if(club!=null)
-		{
+
+	public Club findByStatus(String status) {
+		Club club = repo.findByStatus(status);
+		if (club != null) {
 			return club;
-		}
-		else
-		{
+		} else {
 			return null;
 		}
 	}
