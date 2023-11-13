@@ -86,9 +86,29 @@ public class ApplicationExceptionHandler {
 		return new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.NO_CONTENT);
 
 	}
+
 	@ExceptionHandler(NoCourtsPresentException.class)
 	public ResponseEntity<ResponseStructure<String>> catchNoCourtsFoundException(
 			NoSuchBookingFoundException exception) {
+		ResponseStructure<String> responseStructure = new ResponseStructure<String>();
+		responseStructure.setData(exception.getMessage());
+		responseStructure.setMessage("Failed");
+		responseStructure.setStatusCode(HttpStatus.NO_CONTENT.value());
+		return new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.NO_CONTENT);
+	}
+
+	@ExceptionHandler(AdminAlreadyPresentException.class)
+	public ResponseEntity<ResponseStructure<String>> catchAdminAlreadyPresentException(
+			AdminAlreadyPresentException exception) {
+		ResponseStructure<String> responseStructure = new ResponseStructure<String>();
+		responseStructure.setData(exception.getMessage());
+		responseStructure.setMessage("Failed");
+		responseStructure.setStatusCode(HttpStatus.NO_CONTENT.value());
+		return new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.NO_CONTENT);
+	}
+
+	@ExceptionHandler(NoAdminFoundException.class)
+	public ResponseEntity<ResponseStructure<String>> catchNoAdminFoundException(NoAdminFoundException exception) {
 		ResponseStructure<String> responseStructure = new ResponseStructure<String>();
 		responseStructure.setData(exception.getMessage());
 		responseStructure.setMessage("Failed");
