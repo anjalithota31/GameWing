@@ -77,17 +77,17 @@ public class CourtService {
 
 	}
 
-	public ResponseEntity<ResponseStructure<Court>> findAllCourts() {
+	public ResponseEntity<ResponseStructure<List<Court>>> findAllCourts() {
 		List<Court> courts = courtDao.findAllCourt();
 
-		ResponseStructure<Court> responseStructure = new ResponseStructure<Court>();
-		for (Court court : courts) {
-			responseStructure.setData(court);
-		}
+		ResponseStructure<List<Court>> responseStructure = new ResponseStructure<List<Court>>();
+		
+		responseStructure.setData(courts);
+		
 
 		responseStructure.setMessage("Success");
 		responseStructure.setStatusCode(HttpStatus.FOUND.value());
-		return new ResponseEntity<ResponseStructure<Court>>(responseStructure, HttpStatus.FOUND);
+		return new ResponseEntity<ResponseStructure<List<Court>>>(responseStructure, HttpStatus.FOUND);
 
 	}
 

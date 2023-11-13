@@ -1,4 +1,4 @@
-package com.ty.gamewing.service;
+	package com.ty.gamewing.service;
 
 import java.util.List;
 import java.util.Scanner;
@@ -115,3 +115,4 @@ public class UserService {
 	}
 
 }
+	
