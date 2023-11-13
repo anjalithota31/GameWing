@@ -30,12 +30,13 @@ public class ClubService {
 	
 	public ResponseEntity<ResponseStructure<String>> deleteClub(int id)
 	{
-		String club=dao.deleteClub(id);
+		Club club=dao.findById(id);
 		if(club!=null)
 		{
+			String club1=dao.deleteClub(id);
 			ResponseStructure<String> structure = new ResponseStructure<String>();
 			structure.setStatusCode(HttpStatus.OK.value());
-			structure.setData(club);
+			structure.setData(club1);
 			structure.setMessage("Success");
 			
 			return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.OK);
