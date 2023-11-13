@@ -31,8 +31,7 @@ public class User {
 	private String password;
 	@OneToMany
 	private List<Booking> bookings;
-	
+
 	private Role role;
-	@OneToOne
-	private Club club;
+
 }

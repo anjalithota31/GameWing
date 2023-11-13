@@ -7,24 +7,40 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.ty.gamewing.dao.ClubDao;
+import com.ty.gamewing.dao.UserDao;
 import com.ty.gamewing.dto.Club;
+import com.ty.gamewing.dto.User;
 import com.ty.gamewing.entity.ResponseStructure;
+import com.ty.gamewing.entity.Role;
 import com.ty.gamewing.entity.Status;
 import com.ty.gamewing.exception.NoClubPresentException;
 import com.ty.gamewing.exception.NoSuchClubExistException;
+import com.ty.gamewing.exception.NoSuchUserFoundException;
 
 public class ClubService {
 	@Autowired
 	private ClubDao dao;
 
-	public ResponseEntity<ResponseStructure<Club>> saveClub(Club club) {
-		Club club2 = dao.saveClub(club);
-		ResponseStructure<Club> structure = new ResponseStructure<Club>();
-		structure.setStatusCode(HttpStatus.CREATED.value());
-		structure.setMessage("Success");
-		structure.setData(club2);
+	@Autowired
+	private UserDao userDao;
 
-		return new ResponseEntity<ResponseStructure<Club>>(structure, HttpStatus.CREATED);
+	public ResponseEntity<ResponseStructure<Club>> saveClub(Club club) {
+		List<User> list = userDao.findAllUser();
+		if (list != null) {
+			for (User user : list) {
+				if ((user.getRole()).equals(Role.ADMIN)) {
+					Club club2 = dao.saveClub(club);
+					ResponseStructure<Club> structure = new ResponseStructure<Club>();
+					structure.setStatusCode(HttpStatus.CREATED.value());
+					structure.setMessage("Success");
+					structure.setData(club2);
+
+					return new ResponseEntity<ResponseStructure<Club>>(structure, HttpStatus.CREATED);
+				}
+			}
+		}
+		throw new NoSuchUserFoundException();
+
 	}
 
 	public ResponseEntity<ResponseStructure<String>> deleteClub(int id) {
