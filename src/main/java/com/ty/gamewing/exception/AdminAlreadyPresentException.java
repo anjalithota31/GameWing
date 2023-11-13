@@ -6,6 +6,8 @@ public class AdminAlreadyPresentException extends RuntimeException {
 	public String getMessage() {
 		return "Admin already Exists";
 	}
+	
+	
 
 	
 }

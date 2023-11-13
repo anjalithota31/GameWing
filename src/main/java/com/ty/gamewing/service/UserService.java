@@ -18,7 +18,7 @@ import com.ty.gamewing.exception.NoSuchUserFoundException;
 @Service
 public class UserService {
 	@Autowired
-	UserDao userDao;
+	private UserDao userDao;
 
 	public ResponseEntity<ResponseStructure<User>> saveUser(User user) {
 		List<User> users = userDao.findAllUser();
@@ -102,6 +102,20 @@ public class UserService {
 
 	public ResponseEntity<ResponseStructure<User>> findUserByMailAndPassword(String email, String password) {
 		User user = userDao.findByEmailAndPassword(email, password);
+		if (user != null) {
+			ResponseStructure<User> structure = new ResponseStructure<User>();
+			structure.setStatusCode(HttpStatus.FOUND.value());
+			structure.setMessage("Success");
+			structure.setData(user);
+
+			return new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.FOUND);
+		}
+		throw new NoSuchUserFoundException();
+
+	}
+	
+	public ResponseEntity<ResponseStructure<User>> findUserByMail(String email) {
+		User user = userDao.findUserByEmail(email);
 		if (user != null) {
 			ResponseStructure<User> structure = new ResponseStructure<User>();
 			structure.setStatusCode(HttpStatus.FOUND.value());
