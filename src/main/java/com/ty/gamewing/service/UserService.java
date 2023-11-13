@@ -1,10 +1,12 @@
 package com.ty.gamewing.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
 import com.ty.gamewing.dto.User;
 
 public class UserService {
+	
 	
 	
 

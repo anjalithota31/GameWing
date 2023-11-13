@@ -1,5 +1,6 @@
 package com.ty.gamewing.exception;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -17,7 +18,7 @@ public class ApplicationExceptionHandler {
 		responseStructure.setStatusCode(HttpStatus.NO_CONTENT.value());
 		return new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.NO_CONTENT);
 	}
-	
+
 	@ExceptionHandler(NoClubPresentException.class)
 	public ResponseEntity<ResponseStructure<String>> NoSClubPresentException(NoClubPresentException exception) {
 		ResponseStructure<String> responseStructure = new ResponseStructure<String>();
@@ -26,9 +27,7 @@ public class ApplicationExceptionHandler {
 		responseStructure.setStatusCode(HttpStatus.NO_CONTENT.value());
 		return new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.NO_CONTENT);
 	}
-	
-	
-	
+
 	@ExceptionHandler(NoSuchCourtFoundException.class)
 	public ResponseEntity<ResponseStructure<String>> courtNotFound(NoSuchCourtFoundException exception) {
 		ResponseStructure<String> responseStructure = new ResponseStructure<String>();
@@ -56,4 +55,36 @@ public class ApplicationExceptionHandler {
 		responseStructure.setStatusCode(HttpStatus.NO_CONTENT.value());
 		return new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.NO_CONTENT);
 	}
+
+	@ExceptionHandler(NoSuchBookingFoundException.class)
+	public ResponseEntity<ResponseStructure<String>> catchNoSuchBookingFoundException(
+			NoSuchBookingFoundException exception) {
+		ResponseStructure<String> responseStructure = new ResponseStructure<String>();
+		responseStructure.setData(exception.getMessage());
+		responseStructure.setMessage("Failed");
+		responseStructure.setStatusCode(HttpStatus.NO_CONTENT.value());
+		return new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.NO_CONTENT);
+	}
+
+	@ExceptionHandler(NullPointerException.class)
+	public ResponseEntity<ResponseStructure<String>> catchNullPointerException(NullPointerException exception) {
+		ResponseStructure<String> responseStructure = new ResponseStructure<String>();
+		responseStructure.setData(exception.getMessage());
+		responseStructure.setMessage("Failed");
+		responseStructure.setStatusCode(HttpStatus.NO_CONTENT.value());
+		return new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.NO_CONTENT);
+
+	}
+
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ResponseEntity<ResponseStructure<String>> catchConstraintViolationException(
+			ConstraintViolationException exception) {
+		ResponseStructure<String> responseStructure = new ResponseStructure<String>();
+		responseStructure.setData(exception.getMessage());
+		responseStructure.setMessage("Failed");
+		responseStructure.setStatusCode(HttpStatus.NO_CONTENT.value());
+		return new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.NO_CONTENT);
+
+	}
+
 }
