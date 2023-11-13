@@ -3,6 +3,7 @@ package com.ty.gamewing.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.ty.gamewing.dto.User;
 import com.ty.gamewing.entity.Role;
@@ -10,6 +11,8 @@ import com.ty.gamewing.entity.Role;
 public interface UserRepo extends JpaRepository<User, Integer> {
 
 	public List<User> findbyRole(Role role);
-	
-	public User findByEmailAndPassword(String email,String password);
+
+	public User findByEmailAndPassword(String email, String password);
+
+	public User findByEmail(String email);
 }

@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 
@@ -27,5 +29,8 @@ public class Court {
 	private double price;
 	@OneToMany
 	private List<Booking> bookings;
+	@ManyToOne
+	@JoinColumn
+	private Club club;
 
 }

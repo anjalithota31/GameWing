@@ -31,11 +31,19 @@ public class BookingService {
 	@Autowired
 	private UserDao userDao;
 
-	public ResponseEntity<ResponseStructure<Booking>> saveBooking(int courtId, Booking booking) {
+	public ResponseEntity<ResponseStructure<Booking>> saveBooking(int courtId, String email, Booking booking) {
 		Court court = courtDao.findCourtById(courtId);
+
 		if (court != null) {
 			ArrayList<Booking> list = new ArrayList<Booking>();
 			Booking booking1 = dao.saveBooking(booking);
+			User user = userDao.findUserByEmail(email);
+			if (user != null) {
+				booking.setUser(user);
+			} else {
+				throw new NoSuchUserFoundException();
+			}
+
 			List<Booking> bookings = court.getBookings();
 			if (bookings != null) {
 				bookings.add(booking);

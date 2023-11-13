@@ -1,5 +1,6 @@
 package com.ty.gamewing.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ty.gamewing.dao.ClubDao;
 import com.ty.gamewing.dao.CourtDao;
+import com.ty.gamewing.dto.Club;
 import com.ty.gamewing.dto.Court;
 import com.ty.gamewing.entity.ResponseStructure;
+import com.ty.gamewing.exception.NoSuchClubExistException;
 import com.ty.gamewing.exception.NoSuchClubInTheCourtException;
 import com.ty.gamewing.exception.NoSuchCourtFoundException;
 
@@ -17,16 +21,34 @@ import com.ty.gamewing.exception.NoSuchCourtFoundException;
 public class CourtService {
 
 	@Autowired
-	CourtDao courtDao;
+	private CourtDao courtDao;
 
-	public ResponseEntity<ResponseStructure<Court>> saveCourt(Court court) {
-		Court gotCourt = courtDao.saveCourt(court);
-		ResponseStructure<Court> responseStructure = new ResponseStructure<Court>();
-		responseStructure.setData(gotCourt);
-		responseStructure.setMessage("Success");
-		responseStructure.setStatusCode(HttpStatus.CREATED.value());
+	@Autowired
+	private ClubDao clubDao;
 
-		return new ResponseEntity<ResponseStructure<Court>>(responseStructure, HttpStatus.CREATED);
+	public ResponseEntity<ResponseStructure<Court>> saveCourt(int clubId, Court court) {
+		Club club = clubDao.findById(clubId);
+		if (club != null) {
+			Court gotCourt = courtDao.saveCourt(court);
+			List<Court> courts = club.getCourt();
+			if (courts != null) {
+				courts.add(gotCourt);
+			} else {
+				courts = new ArrayList<Court>();
+				courts.add(gotCourt);
+			}
+			club.setCourt(courts);
+			clubDao.saveClub(club);
+
+			ResponseStructure<Court> responseStructure = new ResponseStructure<Court>();
+			responseStructure.setData(gotCourt);
+			responseStructure.setMessage("Success");
+			responseStructure.setStatusCode(HttpStatus.CREATED.value());
+
+			return new ResponseEntity<ResponseStructure<Court>>(responseStructure, HttpStatus.CREATED);
+		}
+		throw new NoSuchClubExistException();
+
 	}
 
 	public ResponseEntity<ResponseStructure<Court>> findCourtById(int id) {
