@@ -42,8 +42,8 @@ public class ClubDao {
 		return repo.findAll();
 	}
 
-	public Club findByStatus(String status) {
-		Club club = repo.findByStatus(status);
+	public List<Club> findByStatus(String status) {
+		List<Club> club = repo.findByStatus(status);
 		if (club != null) {
 			return club;
 		} else {
