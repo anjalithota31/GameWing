@@ -1,4 +1,4 @@
-	package com.ty.gamewing.service;
+package com.ty.gamewing.service;
 
 import java.util.List;
 import java.util.Scanner;
@@ -12,6 +12,7 @@ import com.ty.gamewing.dao.UserDao;
 import com.ty.gamewing.dto.User;
 import com.ty.gamewing.entity.ResponseStructure;
 import com.ty.gamewing.entity.Role;
+import com.ty.gamewing.entity.Status;
 import com.ty.gamewing.exception.AdminAlreadyPresentException;
 import com.ty.gamewing.exception.NoSuchUserFoundException;
 
@@ -20,26 +21,39 @@ public class UserService {
 	@Autowired
 	private UserDao userDao;
 
-	public ResponseEntity<ResponseStructure<User>> saveUser(User user) {
-		List<User> users = userDao.findAllUser();
-		if (users != null) {
-			User user2 = null;
-			for (User user1 : users) {
-				if (user1.getRole() == Role.ADMIN) {
+	public ResponseEntity<ResponseStructure<User>> saveAdmin(User user) {
+		List<User> list = userDao.findAllUser();
+		User user1 = null;
+		if (list == null) {
+			user1 = userDao.saveUser(user);
+		} else {
+			for (User user2 : list) {
+				if (user2.getRole().equals(Role.ADMIN)) {
 					throw new AdminAlreadyPresentException();
-				} else {
-					user2 = userDao.saveUser(user);
-					ResponseStructure<User> structure = new ResponseStructure<User>();
-					structure.setStatusCode(HttpStatus.CREATED.value());
-					structure.setMessage("Success");
-					structure.setData(user2);
-
-					return new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.CREATED);
 				}
-
 			}
+			user1 = userDao.saveUser(user);
 		}
-		throw new NoSuchUserFoundException();
+		ResponseStructure<User> structure = new ResponseStructure<User>();
+		structure.setStatusCode(HttpStatus.CREATED.value());
+		structure.setMessage("Success");
+		structure.setData(user);
+
+		return new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.CREATED);
+
+	}
+
+	public ResponseEntity<ResponseStructure<User>> saveUser(User user) {
+		if (user.getRole().equals(Role.ADMIN)) {
+			throw new AdminAlreadyPresentException(); 
+		}
+		User user1 = userDao.saveUser(user);
+		ResponseStructure<User> structure = new ResponseStructure<User>();
+		structure.setStatusCode(HttpStatus.CREATED.value());
+		structure.setMessage("Success");
+		structure.setData(user);
+
+		return new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.CREATED);
 	}
 
 	public ResponseEntity<ResponseStructure<User>> findUserById(int id) {
@@ -113,7 +127,7 @@ public class UserService {
 		throw new NoSuchUserFoundException();
 
 	}
-	
+
 	public ResponseEntity<ResponseStructure<User>> findUserByMail(String email) {
 		User user = userDao.findUserByEmail(email);
 		if (user != null) {
@@ -129,4 +143,3 @@ public class UserService {
 	}
 
 }
-	
