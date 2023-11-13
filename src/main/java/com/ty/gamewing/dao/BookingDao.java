@@ -11,6 +11,7 @@ import com.ty.gamewing.repository.BookingRepo;
 
 @Repository
 public class BookingDao {
+	
 	@Autowired
 	private BookingRepo repo;
 

@@ -7,7 +7,7 @@ import com.ty.gamewing.dto.Court;
 
 public interface CourtRepo extends JpaRepository<Court, Integer> {
 	
-	@Query("select c.courts from Club c where c.id=?1")
+	@Query("select c.court from Club c where c.id=?1")
 	Court findCourtByClubId(int id);
 	
 }
