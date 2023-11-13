@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
+import com.ty.gamewing.dto.Club;
 import com.ty.gamewing.dto.Court;
 import com.ty.gamewing.entity.ResponseStructure;
 import com.ty.gamewing.exception.NoSuchClubExistException;
@@ -21,6 +22,9 @@ import com.ty.gamewing.service.UserService;
 public class CourtDao {
 	@Autowired
 	private CourtRepo courtRepo;
+
+	@Autowired
+	private ClubDao clubDao;
 
 	public Court saveCourt(Court court) {
 		return courtRepo.save(court);
@@ -44,17 +48,17 @@ public class CourtDao {
 
 	}
 
-	public Court findCourtByClub(int id) {
-		Court court = courtRepo.findCourtByClubId(id);
-		if (court != null) {
-			return court;
+	public List<Court> findCourtByClub(int id) {
+		Club club = clubDao.findById(id);
+		if (club != null) {
+			return club.getCourt();
 		}
-	 return null;
+		return null;
 	}
 
 	public List<Court> findAllCourt() {
 		return courtRepo.findAll();
-		 
+
 	}
 
 }

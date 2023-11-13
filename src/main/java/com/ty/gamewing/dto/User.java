@@ -1,5 +1,7 @@
 package com.ty.gamewing.dto;
 
+import java.util.List;
+
 import com.ty.gamewing.entity.Role;
 
 import jakarta.persistence.Column;
@@ -28,7 +30,7 @@ public class User {
 
 	private String password;
 	@OneToMany
-	private Booking booking;
+	private List<Booking> bookings;
 	
 	private Role role;
 	@OneToOne

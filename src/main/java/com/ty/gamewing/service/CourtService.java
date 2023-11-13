@@ -15,74 +15,72 @@ import com.ty.gamewing.exception.NoSuchCourtFoundException;
 
 @Service
 public class CourtService {
-	
+
 	@Autowired
 	CourtDao courtDao;
-	
-	public ResponseEntity<ResponseStructure<Court>> saveCourt(Court court){
-	Court gotCourt=courtDao.saveCourt(court);
-		ResponseStructure<Court> responseStructure=new ResponseStructure<Court>();
+
+	public ResponseEntity<ResponseStructure<Court>> saveCourt(Court court) {
+		Court gotCourt = courtDao.saveCourt(court);
+		ResponseStructure<Court> responseStructure = new ResponseStructure<Court>();
 		responseStructure.setData(gotCourt);
 		responseStructure.setMessage("Success");
 		responseStructure.setStatusCode(HttpStatus.CREATED.value());
-		
-		return new ResponseEntity<ResponseStructure<Court>>(responseStructure,HttpStatus.CREATED);
+
+		return new ResponseEntity<ResponseStructure<Court>>(responseStructure, HttpStatus.CREATED);
 	}
-	
-	public ResponseEntity<ResponseStructure<Court>> findCourtById(int id){
-		Court gotCourt=courtDao.findCourtById(id);
-		if(gotCourt!=null) {
-			ResponseStructure<Court> responseStructure=new ResponseStructure<Court>();
+
+	public ResponseEntity<ResponseStructure<Court>> findCourtById(int id) {
+		Court gotCourt = courtDao.findCourtById(id);
+		if (gotCourt != null) {
+			ResponseStructure<Court> responseStructure = new ResponseStructure<Court>();
 			responseStructure.setData(gotCourt);
 			responseStructure.setMessage("Success");
 			responseStructure.setStatusCode(HttpStatus.FOUND.value());
-			return new ResponseEntity<ResponseStructure<Court>>(responseStructure,HttpStatus.FOUND);
+			return new ResponseEntity<ResponseStructure<Court>>(responseStructure, HttpStatus.FOUND);
 		}
 		throw new NoSuchCourtFoundException();
 	}
-	public ResponseEntity<ResponseStructure<String>> deleteCourt(int id){
-		boolean gotCourt=courtDao.deleteCourt(id);
-		if(gotCourt==true) {
-		ResponseStructure<String> responseStructure=new ResponseStructure<String>();
-		responseStructure.setData("Court Removed Successfully!!");
-		responseStructure.setMessage("Success");
-		responseStructure.setStatusCode(HttpStatus.OK.value());
-		return new ResponseEntity<ResponseStructure<String>>(responseStructure,HttpStatus.OK);
-		}
-		else {
+
+	public ResponseEntity<ResponseStructure<String>> deleteCourt(int id) {
+		boolean gotCourt = courtDao.deleteCourt(id);
+		if (gotCourt == true) {
+			ResponseStructure<String> responseStructure = new ResponseStructure<String>();
+			responseStructure.setData("Court Removed Successfully!!");
+			responseStructure.setMessage("Success");
+			responseStructure.setStatusCode(HttpStatus.OK.value());
+			return new ResponseEntity<ResponseStructure<String>>(responseStructure, HttpStatus.OK);
+		} else {
 			throw new NoSuchCourtFoundException();
 		}
-		
+
 	}
-	public ResponseEntity<ResponseStructure<Court>> findAllCourts()
-	{
-		List<Court> courts=courtDao.findAllCourt();
-		
-		ResponseStructure<Court> responseStructure=new ResponseStructure<Court>();
-		for(Court court:courts) {
+
+	public ResponseEntity<ResponseStructure<Court>> findAllCourts() {
+		List<Court> courts = courtDao.findAllCourt();
+
+		ResponseStructure<Court> responseStructure = new ResponseStructure<Court>();
+		for (Court court : courts) {
 			responseStructure.setData(court);
 		}
-		
+
 		responseStructure.setMessage("Success");
 		responseStructure.setStatusCode(HttpStatus.FOUND.value());
-		return new ResponseEntity<ResponseStructure<Court>>(responseStructure,HttpStatus.FOUND);
-		
-		
+		return new ResponseEntity<ResponseStructure<Court>>(responseStructure, HttpStatus.FOUND);
+
 	}
-	public ResponseEntity<ResponseStructure<Court>> findCourtByClub(int id){
-		Court court=courtDao.findCourtByClub(id);
-		if(court!=null) {
-		ResponseStructure<Court> responseStructure=new ResponseStructure<Court>();
-		responseStructure.setData(court);
-		responseStructure.setMessage("Success");
-		responseStructure.setStatusCode(HttpStatus.FOUND.value());
-		return new ResponseEntity<ResponseStructure<Court>>(responseStructure,HttpStatus.FOUND);
-		}
-		else {
+
+	public ResponseEntity<ResponseStructure<List<Court>>> findCourtByClub(int id) {
+		List<Court> courts = courtDao.findCourtByClub(id);
+		if (courts != null) {
+			ResponseStructure<List<Court>> responseStructure = new ResponseStructure<List<Court>>();
+			responseStructure.setData(courts);
+			responseStructure.setMessage("Success");
+			responseStructure.setStatusCode(HttpStatus.FOUND.value());
+			return new ResponseEntity<ResponseStructure<List<Court>>>(responseStructure, HttpStatus.FOUND);
+		} else {
 			throw new NoSuchClubInTheCourtException();
 		}
-		
+
 	}
-	
 
 }

@@ -38,18 +38,6 @@ public class ClubDao {
 		}
 	}
 
-	public Club updateClubStatus(int id) {
-		Optional<Club> optional = repo.findById(id);
-		if (optional.isPresent()) {
-
-			Club club = optional.get();
-
-			return repo.save(club);
-		} else {
-			return null;
-		}
-	}
-
 	public List<Club> displayAllClub() {
 		return repo.findAll();
 	}
