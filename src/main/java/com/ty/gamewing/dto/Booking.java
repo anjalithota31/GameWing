@@ -27,6 +27,6 @@ public class Booking {
 	private double totalprice;
 	private double totalduration;
 	@ManyToOne
-	private User User;
+	private User user;
 
 }

@@ -9,7 +9,7 @@ import com.ty.gamewing.dto.User;
 import com.ty.gamewing.entity.Role;
 
 public interface UserRepo extends JpaRepository<User, Integer> {
-
+	@Query("select u from User u where u.role=?1")
 	public List<User> findbyRole(Role role);
 
 	public User findByEmailAndPassword(String email, String password);

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import com.ty.gamewing.dao.ClubDao;
 import com.ty.gamewing.dao.UserDao;
@@ -16,7 +17,7 @@ import com.ty.gamewing.entity.Status;
 import com.ty.gamewing.exception.NoClubPresentException;
 import com.ty.gamewing.exception.NoSuchClubExistException;
 import com.ty.gamewing.exception.NoSuchUserFoundException;
-
+@Service
 public class ClubService {
 	@Autowired
 	private ClubDao dao;
